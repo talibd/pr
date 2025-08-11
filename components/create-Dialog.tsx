@@ -65,7 +65,7 @@ export function CreateDialog() {
                 </button>
               ))}
             </nav>
-            <div className="mt-auto p-3 hidden" />
+            <div className="mt-auto p-3 hidden" /> 
           </aside>
 
           {/* Content area */}
