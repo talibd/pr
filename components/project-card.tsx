@@ -3,6 +3,7 @@ import React from 'react'
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
     SidebarInset,
     SidebarProvider,
@@ -36,7 +37,6 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ClipboardList, CornerDownLeft, FolderClosed, Globe, Globe2, HardDrive, KeyRound, Link2, MoreHorizontal, Plus, Settings2, Trash2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -85,7 +85,7 @@ export default function ProjectCard({ projects }: { projects: Project[] }) {
     function copyText(text: string) {
         if (navigator && navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
             navigator.clipboard.writeText(text);
-            toast('Copied Succesfully!',
+            toast('Copied!',
                 {
                   icon: '👍',
                   style: {
@@ -111,7 +111,7 @@ export default function ProjectCard({ projects }: { projects: Project[] }) {
 
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
             {projects.map((project) => {
                 const linkAction = project.actions.find(a => a.type === 'link' && !!a.href)
                 return (
@@ -121,7 +121,12 @@ export default function ProjectCard({ projects }: { projects: Project[] }) {
                         </div>
                         <div className="flex flex-col gap-3 cursor-pointer" onClick={() => handleCardRedirect(project.id)}>
                             <CardHeader className="flex p-0 flex-row gap-2 w-full ">
-                                <Image src={project.logo} width={1080} height={1080} alt={project.title} className="rounded-full w-12 h-12 border bg-white" />
+                                <Avatar className="w-12 h-12 border border-neutral-200">
+                                  <AvatarImage src={project.logo} alt={project.title} />
+                                  <AvatarFallback className="bg-sidebar-accent text-neutral-500">
+                                    {project.title ? project.title.substring(0, 2).toUpperCase() : 'PR'}
+                                  </AvatarFallback>
+                                </Avatar>
                                 <div className="flex flex-col">
                                     <CardTitle className="text-xl text-neutral-600 font-normal w-[200px] line-clamp-1 truncate">{project.title}</CardTitle>
                                     <span className="text-sm text-neutral-500 flex flex-row items-center gap-1 w-[200px] line-clamp-1 truncate"><Globe size={14} /> {project.display_url}</span>

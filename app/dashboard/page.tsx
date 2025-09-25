@@ -207,7 +207,7 @@ export default function Page() {
       </div>
       {/* project cards  */}
 
-      <div className=" mx-auto h-50 w-full 2xl:max-w-7xl md:max-w-7xl 2xl:px-0 xl:px-5 px-0    flex gap-4 flex-col">
+      <div className=" mx-auto h-50 w-full 2xl:max-w-5xl md:max-w-7xl 2xl:px-0 xl:px-5 px-0    flex gap-4 flex-col">
         {/* create options  */}
         <div className="flex items-center  gap-2">
           <CreateDialog />

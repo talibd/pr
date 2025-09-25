@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
 import {
   AudioWaveform,
   BarChart2,
@@ -37,7 +38,7 @@ import {
 } from "@/components/ui/sidebar"
 import { NavProjects } from "./nav-projects"
 
-// This is sample data.
+
 const data = {
   teams: [
     {
@@ -57,16 +58,14 @@ const data = {
     },
   ],
   navMain: [
-
     {
       title: "Home",
       url: "/dashboard",
       icon: Home,
-      isActive: true,
     },
     {
       title: "Team",
-      url: "#",
+      url: "/team",
       icon: Inbox,
       badge: "10",
     },
@@ -261,12 +260,19 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+  
+  // Add isActive based on current path
+  const navMainWithActive = data.navMain.map(item => ({
+    ...item,
+    isActive: pathname === item.url
+  }))
   return (
     <Sidebar  className="border-r-0" {...props}>
       <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
-        <NavMain items={data.navMain} />
       </SidebarHeader>
+      <NavMain items={navMainWithActive} />
       <SidebarContent>
         <NavProjects projects={data.projects} />
         <NavWorkspaces workspaces={data.workspaces} />
